@@ -1,9 +1,16 @@
 import Navbar from "../components/Navbar";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { DarkModeContext } from "../App";
 
 export default function About() {
     const { darkMode } = useContext(DarkModeContext);
+
+    useEffect(() => {
+        document.title = "TextFun - About";
+        return () => {
+            document.title = "TextFun - Have Fun with Texts";   
+        };
+    }, []);
 
     const customstyle = {
         width: "50rem",
@@ -17,16 +24,9 @@ export default function About() {
         transition: "background 0.3s, color 0.3s"
     };
 
-    const title = {
-        documentTitle: "TextFun - About",
-        useEffect: () => {
-            document.title = title.documentTitle;
-        }
-    }
     return (
         <>
-            {title.useEffect()}
-            <Navbar />1
+            <Navbar />
             <div className="card" style={customstyle}>
                 <div className="card-body">
                     <h5 className="card-title">About Fun Text</h5>
