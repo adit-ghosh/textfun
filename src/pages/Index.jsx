@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Navbar from "../components/Navbar";
+import { DarkModeContext } from "../App";
 
 export default function Index() {
     const [text, setText] = useState("");
     const [summary, setSummary] = useState(null);
+    const { darkMode } = useContext(DarkModeContext);
 
     // Utility functions
     const capitalizeText = (str) =>
@@ -12,7 +14,6 @@ export default function Index() {
             .replace(/(^\w{1}|\.\s*\w{1}|\!\s*\w{1}|\?\s*\w{1})/gm, (match) => match.toUpperCase());
 
     const punctuateText = (str) => {
-        // Simple punctuation: add period at end if missing, capitalize first letter
         let s = str.trim();
         if (!/[.!?]$/.test(s) && s.length > 0) s += ".";
         return capitalizeText(s);
@@ -61,25 +62,43 @@ export default function Index() {
     // Styling
     const containerStyle = {
         maxWidth: "700px",
-        width: "75vh", // Added width as requested
+        width: "75vh",
         margin: "40px auto",
         padding: "32px",
-        background: "#f8f9fa",
+        background: darkMode ? "#181c24" : "#f8f9fa",
         borderRadius: "16px",
-        boxShadow: "0 2px 16px rgba(0,0,0,0.08)",
+        boxShadow: darkMode
+            ? "0 2px 16px rgba(0,0,0,0.32)"
+            : "0 2px 16px rgba(0,0,0,0.08)",
+        color: darkMode ? "#f8f9fa" : "#181c24",
+        transition: "background 0.3s, color 0.3s",
     };
     const buttonStyle = {
         margin: "6px 8px 6px 0",
         minWidth: "170px",
         fontWeight: "500",
         letterSpacing: "0.5px",
+        background: darkMode ? "#2563eb" : undefined,
+        color: darkMode ? "#fff" : undefined,
+        border: darkMode ? "none" : undefined,
     };
     const summaryStyle = {
         marginTop: "32px",
-        background: "#fff",
+        background: darkMode ? "#23272f" : "#fff",
         borderRadius: "12px",
         padding: "20px",
-        boxShadow: "0 1px 8px rgba(0,0,0,0.06)",
+        boxShadow: darkMode
+            ? "0 1px 8px rgba(0,0,0,0.18)"
+            : "0 1px 8px rgba(0,0,0,0.06)",
+        color: darkMode ? "#f8f9fa" : "#181c24",
+    };
+    const textareaStyle = {
+        fontSize: "16px",
+        marginBottom: "18px",
+        background: darkMode ? "#23272f" : "#fff",
+        color: darkMode ? "#f8f9fa" : "#181c24",
+        border: darkMode ? "1px solid #444" : undefined,
+        transition: "background 0.3s, color 0.3s",
     };
 
     return (
@@ -87,7 +106,15 @@ export default function Index() {
             <Navbar />
             <div style={containerStyle}>
                 <div className="mb-3">
-                    <label htmlFor="exampleFormControlTextarea1" className="form-label" style={{ fontWeight: "bold", fontSize: "18px" }}>
+                    <label
+                        htmlFor="exampleFormControlTextarea1"
+                        className="form-label"
+                        style={{
+                            fontWeight: "bold",
+                            fontSize: "18px",
+                            color: darkMode ? "#f8f9fa" : "#181c24",
+                        }}
+                    >
                         Enter Your Text
                     </label>
                     <textarea
@@ -96,7 +123,7 @@ export default function Index() {
                         rows="10"
                         value={text}
                         onChange={(e) => setText(e.target.value)}
-                        style={{ fontSize: "16px", marginBottom: "18px" }}
+                        style={textareaStyle}
                     ></textarea>
                 </div>
                 <div>
@@ -122,7 +149,13 @@ export default function Index() {
                         </ul>
                         <div>
                             <b>Text:</b>
-                            <div style={{ background: "#f1f3f4", borderRadius: "8px", padding: "12px", marginTop: "8px" }}>
+                            <div style={{
+                                background: darkMode ? "#181c24" : "#f1f3f4",
+                                borderRadius: "8px",
+                                padding: "12px",
+                                marginTop: "8px",
+                                color: darkMode ? "#f8f9fa" : "#181c24"
+                            }}>
                                 {summary.properText}
                             </div>
                         </div>
