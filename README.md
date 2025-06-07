@@ -2,7 +2,7 @@
 
 A modern, interactive text transformation and analysis tool built with React, Bootstrap, and JavaScript.
 
-![TextFun UI](./src/assets/demo.png)
+![TextFun UI](./src/assets/Screenshot.png)
 
 ## Demo
 
@@ -10,7 +10,7 @@ https://fun-text.netlify.app/
 
 ### Watch it in action:
 
-![TextFun Demo](./src/assets/demo.gif)
+![TextFun Demo](./src/assets/TextFun.gif)
 
 ## Features
 
